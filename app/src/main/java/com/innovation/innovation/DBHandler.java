@@ -15,7 +15,7 @@ import static android.R.attr.id;
 public class DBHandler extends SQLiteOpenHelper {
 
     //Declares constants for the database name, table name, table columns and database version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "productDB.db";
     private static final String TABLE_PRODUCTS = "products";
 
@@ -23,6 +23,10 @@ public class DBHandler extends SQLiteOpenHelper {
     public static final String COLUMN_PRODUCT = "product";
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_TYPE = "type";
+    public static final String COLUMN_PURPOSE = "purpose";
+    public static final String COLUMN_LOCATION = "location";
+    public static final String COLUMN_SCHOOLS = "schools";
+    public static final String COLUMN_CONTACTS = "contacts";
 
     //Constructor for database
     public DBHandler(Context context, String name,
@@ -39,7 +43,11 @@ public class DBHandler extends SQLiteOpenHelper {
                 + COLUMN_ID + " INTEGER PRIMARY KEY,"
                 + COLUMN_PRODUCT + " TEXT,"
                 + COLUMN_DESCRIPTION + " TEXT,"
-                + COLUMN_TYPE + " TEXT" + ")";
+                + COLUMN_TYPE + " TEXT,"
+                + COLUMN_PURPOSE + " TEXT,"
+                + COLUMN_LOCATION + " TEXT,"
+                + COLUMN_SCHOOLS + " TEXT,"
+                + COLUMN_CONTACTS + " TEXT" + ")";
         db.execSQL(CREATE_PRODUCTS_TABLE);
     }
 
@@ -58,6 +66,10 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(COLUMN_PRODUCT, product.getProduct());
         values.put(COLUMN_DESCRIPTION, product.getDescription());
         values.put(COLUMN_TYPE, product.getProductType());
+        values.put(COLUMN_PURPOSE, product.getProductPurpose());
+        values.put(COLUMN_LOCATION, product.getProductLocation());
+        values.put(COLUMN_SCHOOLS, product.getProductSchools());
+        values.put(COLUMN_CONTACTS, product.getProductContacts());
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.insert(TABLE_PRODUCTS, null, values);
@@ -81,6 +93,10 @@ public class DBHandler extends SQLiteOpenHelper {
             prod.setProduct(cursor.getString(1));
             prod.setDescription(cursor.getString(2));
             prod.setProductType(cursor.getString(3));
+            prod.setProductPurpose(cursor.getString(4));
+            prod.setProductLocation(cursor.getString(5));
+            prod.setProductSchools(cursor.getString(6));
+            prod.setProductContacts(cursor.getString(7));
             cursor.close();
         } else {
             prod = null;
