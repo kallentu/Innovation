@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import static android.R.attr.id;
+
 /**
  * Created by KallenTu on 9/11/2016.
  */
@@ -13,13 +15,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHandler extends SQLiteOpenHelper {
 
     //Declares constants for the database name, table name, table columns and database version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "productDB.db";
     private static final String TABLE_PRODUCTS = "products";
 
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_PRODUCT = "product";
     public static final String COLUMN_DESCRIPTION = "description";
+    public static final String COLUMN_TYPE = "type";
 
     //Constructor for database
     public DBHandler(Context context, String name,
@@ -35,7 +38,8 @@ public class DBHandler extends SQLiteOpenHelper {
                 TABLE_PRODUCTS + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY,"
                 + COLUMN_PRODUCT + " TEXT,"
-                + COLUMN_DESCRIPTION + " INTEGER" + ")";
+                + COLUMN_DESCRIPTION + " TEXT,"
+                + COLUMN_TYPE + " TEXT" + ")";
         db.execSQL(CREATE_PRODUCTS_TABLE);
     }
 
@@ -53,6 +57,7 @@ public class DBHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_PRODUCT, product.getProduct());
         values.put(COLUMN_DESCRIPTION, product.getDescription());
+        values.put(COLUMN_TYPE, product.getProductType());
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.insert(TABLE_PRODUCTS, null, values);
@@ -61,8 +66,8 @@ public class DBHandler extends SQLiteOpenHelper {
 
     //Method to query the database
     //Argument is a String object containing the name of the product to be located
-    public Product findProduct(String product) {
-        String query = "Select * FROM " + TABLE_PRODUCTS + " WHERE " + COLUMN_PRODUCT + " =  \"" + product + "\"";
+    public Product findProduct(String id) {
+        String query = "Select * FROM " + TABLE_PRODUCTS + " WHERE " + COLUMN_ID + " =  \"" + id + "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -75,6 +80,7 @@ public class DBHandler extends SQLiteOpenHelper {
             prod.setID(Integer.parseInt(cursor.getString(0)));
             prod.setProduct(cursor.getString(1));
             prod.setDescription(cursor.getString(2));
+            prod.setProductType(cursor.getString(3));
             cursor.close();
         } else {
             prod = null;

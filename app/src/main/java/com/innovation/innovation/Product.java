@@ -13,21 +13,24 @@ public class Product {
     private int _id;
     private String _product;
     private String _description;
+    private String _type;
 
     //com.innovation.innovation.Product default constructor
     public Product() {}
 
     //com.innovation.innovation.Product constructor with parameters to set
-    public Product(int id, String product, String description) {
+    public Product(int id, String product, String description, String type) {
         this._id = id;
         this._product = product;
         this._description = description;
+        this._type = type;
     }
 
     //com.innovation.innovation.Product constructor without id
-    public Product(String product, String description) {
+    public Product(String product, String description, String type) {
         this._product = product;
         this._description = description;
+        this._type = type;
     }
 
     //Updates id
@@ -58,5 +61,15 @@ public class Product {
     //Returns description
     public String getDescription() {
         return this._description;
+    }
+
+    //Updates product type
+    public void setProductType(String type) {
+        this._type = type;
+    }
+
+    //Returns product type
+    public String getProductType() {
+        return this._type;
     }
 }

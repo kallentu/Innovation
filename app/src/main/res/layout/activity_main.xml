@@ -9,29 +9,38 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.innovation.innovation.MainActivity">
 
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Product ID"
+        android:hint="Product ID"
         android:id="@+id/productID" />
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/product"
         android:layout_below="@+id/productID"
         android:layout_alignParentStart="true"
         android:layout_marginTop="27dp"
-        android:hint="Product Name"/>
+        android:text="Product Name"/>
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/productDescription"
         android:layout_below="@+id/product"
         android:layout_alignParentStart="true"
         android:layout_marginTop="36dp"
-        android:hint="File Path"/>
+        android:text="Description"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/productType"
+        android:layout_below="@+id/productDescription"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="36dp"
+        android:text="Project Type"/>
 
     <Button
         android:layout_width="wrap_content"
