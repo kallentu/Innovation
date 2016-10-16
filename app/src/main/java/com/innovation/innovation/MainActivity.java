@@ -1,36 +1,25 @@
 package com.innovation.innovation;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
-import android.support.annotation.DrawableRes;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
 
-import java.io.File;
-
-import static com.innovation.innovation.R.id.picture;
-import static com.innovation.innovation.R.id.product;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public final static String EXTRA_MESSAGE = "com.innovation.innovation.MESSAGE";
     private boolean isInDB;
 
-    //Views changed by database
-    EditText idView;
-    TextView productBox;
-    TextView descriptionBox;
-    TextView productTypeBox;
-    TextView productPurposeBox;
-    TextView productLocationBox;
-    TextView productSchoolsBox;
-    TextView productContactsBox;
+    private Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+
 
     //Finds the views needed for database
     @Override
@@ -38,16 +27,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        idView = (EditText) findViewById(R.id.productID);
-        productBox = (TextView) findViewById(product);
-        descriptionBox = (TextView) findViewById(R.id.productDescription);
-        productTypeBox = (TextView) findViewById(R.id.productType);
-        productPurposeBox = (TextView) findViewById(R.id.productPurpose);
-        productLocationBox = (TextView) findViewById(R.id.productLocation);
-        productSchoolsBox = (TextView) findViewById(R.id.productSchools);
-        productContactsBox = (TextView) findViewById(R.id.productContacts);
+        //sets the toolbar
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        if (isInDB == false) {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+
+        //sets the tabs
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
+        //Checks whether database has been initialized
+        if (!isInDB) {
             DBHandler dbHandler = new DBHandler(this, null, null, 1);
 
             Product alternativeEducation =
@@ -553,7 +547,7 @@ public class MainActivity extends AppCompatActivity {
                                     "Scott Benwell,\n" +
                                     "Superintendent SD85 \n" +
                                     "sbenwell@sd85.bc.ca");
-            dbHandler.addProduct(elemMath);
+            dbHandler.addProduct(multiGrade);
 
             Product moduleTeach =
                     new Product("Using a Module Approach for Teaching and Learning",
@@ -577,7 +571,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //Adds new Product given from the views
+    //Code below for future reference if needed.
+
+/*    //Adds new Product given from the views
     public void newProduct (View view) {
         DBHandler dbHandler = new DBHandler(this, null, null, 1);
 
@@ -630,14 +626,16 @@ public class MainActivity extends AppCompatActivity {
             productContactsBox.setText(String.valueOf(product.getProductContacts()));
 
 
-            /*//Used for changing url to image and puts it to imageview
-            //Gets file path of image and sets it to the image view
+            *//*Used for changing url to image and puts it to imageview
+            Gets file path of image and sets it to the image view
+
             File imgFile = new  File(String.valueOf(product.getPicture()));
             if(imgFile.exists()){
                 Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
                 ImageView myImage = (ImageView) findViewById(R.id.picture);
                 myImage.setImageBitmap(myBitmap);
-            }*/
+            }
+            *//*
 
         } else {
             idView.setText("No Match Found");
@@ -666,6 +664,42 @@ public class MainActivity extends AppCompatActivity {
         }
         else
             idView.setText("No Match Found");
+    }*/
+
+    private void setupViewPager(ViewPager viewPager) {
+        //Set up the fragments in each tab
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new ProjectList(), "ONE");
+        viewPager.setAdapter(adapter);
     }
-    
+
+    //Adds the fragment to each tab (fragments acts like items in an array)
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
 }
