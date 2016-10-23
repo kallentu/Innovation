@@ -24,12 +24,12 @@ public class ProjectContent extends Activity {
         int value = extras.getInt("key");
 
         //Views changed by database
-        TextView idView = (TextView) findViewById(R.id.productID);
+        //TextView idView = (TextView) findViewById(R.id.productID);
         TextView productBox = (TextView) findViewById(product);
         TextView descriptionBox = (TextView) findViewById(R.id.productDescription);
-        TextView productTypeBox = (TextView) findViewById(R.id.productType);
-        TextView productPurposeBox = (TextView) findViewById(R.id.productPurpose);
-        TextView productLocationBox = (TextView) findViewById(R.id.productLocation);
+        //TextView productTypeBox = (TextView) findViewById(R.id.productType);
+        //TextView productPurposeBox = (TextView) findViewById(R.id.productPurpose);
+        //TextView productLocationBox = (TextView) findViewById(R.id.productLocation);
         TextView productSchoolsBox = (TextView) findViewById(R.id.productSchools);
         TextView productContactsBox = (TextView) findViewById(R.id.productContacts);
 
@@ -39,12 +39,12 @@ public class ProjectContent extends Activity {
                 dbHandler.findProduct(String.valueOf(value + 1));
 
         //Sets the texts in the views according to the values in the row of the located id number
-        idView.setText(String.valueOf(product.getID()));
+        //idView.setText(String.valueOf(product.getID()));
         productBox.setText(String.valueOf(product.getProduct()));
         descriptionBox.setText(String.valueOf(product.getDescription()));
-        productTypeBox.setText(String.valueOf(product.getProductType()));
-        productPurposeBox.setText(String.valueOf(product.getProductPurpose()));
-        productLocationBox.setText(String.valueOf(product.getProductLocation()));
+        //productTypeBox.setText(String.valueOf(product.getProductType()));
+        //productPurposeBox.setText(String.valueOf(product.getProductPurpose()));
+        //productLocationBox.setText(String.valueOf(product.getProductLocation()));
         productSchoolsBox.setText(String.valueOf(product.getProductSchools()));
         productContactsBox.setText(String.valueOf(product.getProductContacts()));
 
