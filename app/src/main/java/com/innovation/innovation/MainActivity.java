@@ -1,13 +1,20 @@
 package com.innovation.innovation;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,29 +23,13 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean isInDB;
 
-    private Toolbar toolbar;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-
-
     //Finds the views needed for database
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //sets the toolbar
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
-
-        //sets the tabs
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
 
         //Checks whether database has been initialized
         if (!isInDB) {
@@ -569,64 +560,65 @@ public class MainActivity extends AppCompatActivity {
 
             isInDB = true;
         }
+
     }
 
     //Code below for future reference if needed.
 
-/*    //Adds new Product given from the views
-    public void newProduct (View view) {
-        DBHandler dbHandler = new DBHandler(this, null, null, 1);
+    /*    //Adds new Product given from the views
+        public void newProduct (View view) {
+            DBHandler dbHandler = new DBHandler(this, null, null, 1);
 
-        String description =
-                descriptionBox.getText().toString();
+            String description =
+                    descriptionBox.getText().toString();
 
-        String type =
-                productTypeBox.getText().toString();
+            String type =
+                    productTypeBox.getText().toString();
 
-        String purpose =
-                productPurposeBox.getText().toString();
+            String purpose =
+                    productPurposeBox.getText().toString();
 
-        String location =
-                productLocationBox.getText().toString();
+            String location =
+                    productLocationBox.getText().toString();
 
-        String schools =
-                productSchoolsBox.getText().toString();
+            String schools =
+                    productSchoolsBox.getText().toString();
 
-        String contacts =
-                productContactsBox.getText().toString();
+            String contacts =
+                    productContactsBox.getText().toString();
 
-        Product product =
-                new Product(productBox.getText().toString(), description, type, purpose, location, schools, contacts);
+            Product product =
+                    new Product(productBox.getText().toString(), description, type, purpose, location, schools, contacts);
 
-        dbHandler.addProduct(product);
-        productBox.setText("");
-        descriptionBox.setText("");
-        productTypeBox.setText("");
-        productPurposeBox.setText("");
-        productLocationBox.setText("");
-        productSchoolsBox.setText("");
-        productContactsBox.setText("");
-    }
+            dbHandler.addProduct(product);
+            productBox.setText("");
+            descriptionBox.setText("");
+            productTypeBox.setText("");
+            productPurposeBox.setText("");
+            productLocationBox.setText("");
+            productSchoolsBox.setText("");
+            productContactsBox.setText("");
+        }
 
-    //Find product in database onClick
-    public void lookupProduct (View view) {
-        DBHandler dbHandler = new DBHandler(this, null, null, 1);
+        //Find product in database onClick
+        public void lookupProduct (View view) {
+            DBHandler dbHandler = new DBHandler(this, null, null, 1);
 
-        Product product =
-                dbHandler.findProduct(idView.getText().toString());
+            Product product =
+                    dbHandler.findProduct(idView.getText().toString());
 
-        if (product != null) {
-            idView.setText(String.valueOf(product.getID()));
-            productBox.setText(String.valueOf(product.getProduct()));
-            descriptionBox.setText(String.valueOf(product.getDescription()));
-            productTypeBox.setText(String.valueOf(product.getProductType()));
-            productPurposeBox.setText(String.valueOf(product.getProductPurpose()));
-            productLocationBox.setText(String.valueOf(product.getProductLocation()));
-            productSchoolsBox.setText(String.valueOf(product.getProductSchools()));
-            productContactsBox.setText(String.valueOf(product.getProductContacts()));
+            if (product != null) {
+                idView.setText(String.valueOf(product.getID()));
+                productBox.setText(String.valueOf(product.getProduct()));
+                descriptionBox.setText(String.valueOf(product.getDescription()));
+                productTypeBox.setText(String.valueOf(product.getProductType()));
+                productPurposeBox.setText(String.valueOf(product.getProductPurpose()));
+                productLocationBox.setText(String.valueOf(product.getProductLocation()));
+                productSchoolsBox.setText(String.valueOf(product.getProductSchools()));
+                productContactsBox.setText(String.valueOf(product.getProductContacts()));
 
 
-            *//*Used for changing url to image and puts it to imageview
+                *//*Used for changing url to image and puts it to imageview
             Gets file path of image and sets it to the image view
 
             File imgFile = new  File(String.valueOf(product.getPicture()));
@@ -665,41 +657,9 @@ public class MainActivity extends AppCompatActivity {
         else
             idView.setText("No Match Found");
     }*/
-
-    private void setupViewPager(ViewPager viewPager) {
-        //Set up the fragments in each tab
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ProjectList(), "ONE");
-        viewPager.setAdapter(adapter);
+    public void onClick(View v) {
+        Intent intent = new Intent(this, FlipContent.class);
+        startActivity(intent);
     }
 
-    //Adds the fragment to each tab (fragments acts like items in an array)
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
-    }
 }

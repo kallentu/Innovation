@@ -2,17 +2,13 @@ package com.innovation.innovation;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import static com.innovation.innovation.R.id.product;
-
 /**
- * Created by KallenTu on 10/15/2016.
+ * Created by liruk on 2016-10-29.
  */
 
-public class ProjectContent extends Activity {
-
+public class ListContent extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +21,7 @@ public class ProjectContent extends Activity {
 
         //Views changed by database
         //TextView idView = (TextView) findViewById(R.id.productID);
-        TextView productBox = (TextView) findViewById(product);
+        TextView productBox = (TextView) findViewById(R.id.product);
         TextView descriptionBox = (TextView) findViewById(R.id.productDescription);
         //TextView productTypeBox = (TextView) findViewById(R.id.productType);
         //TextView productPurposeBox = (TextView) findViewById(R.id.productPurpose);

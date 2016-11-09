@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:xliff="http://schemas.android.com/tools">
     <string name="app_name">Innovation</string>
+    <string name="first">First</string>
+    <string name="last">Last</string>
+    <string name="prepend">Prepend</string>
     <string-array name="Projects">
         <item>Alternative Education - Dispelling Myth</item>
         <item>An Innovative Primary French Immersion Report Card</item>
@@ -33,4 +36,6 @@
         <item>The Multi-Grade Approach to Learning</item>
         <item>Using a Module Approach for Teaching and Learning</item>
     </string-array>
+    <string name="title_template_step">Project <xliff:g id="step_number">%1$d</xliff:g>: Lorem Ipsum</string>
+
 </resources>
