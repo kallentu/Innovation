@@ -16,10 +16,6 @@ import java.util.List;
 
 public class FlipAdapter extends BaseAdapter {
 
-    public interface Callback {
-        void onPageRequested(int page);
-    }
-
     static public class Item {
 
         long id = 0;
@@ -45,8 +41,6 @@ public class FlipAdapter extends BaseAdapter {
         }
     }
 
-
-
     @Override
     public int getCount() {
         return items.size();
@@ -68,20 +62,22 @@ public class FlipAdapter extends BaseAdapter {
         return true;
     }
 
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
 
+        //Changes the text
         if(convertView == null) {
             holder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.content_project, parent, false);
+            convertView = inflater.inflate(R.layout.content_project_flip, parent, false);
 
             //holder.productID = (TextView) convertView.findViewById(R.id.productID);
-            holder.productBox = (TextView) convertView.findViewById(R.id.product);
-            holder.descriptionBox = (TextView) convertView.findViewById(R.id.productDescription);
             //holder.productTypeBox = (TextView) convertView.findViewById(R.id.productType);
             //holder.productPurposeBox = (TextView) convertView.findViewById(R.id.productPurpose);
             //holder.productLocationBox = (TextView) convertView.findViewById(R.id.productLocation);
+            holder.productBox = (TextView) convertView.findViewById(R.id.product);
+            holder.descriptionBox = (TextView) convertView.findViewById(R.id.productDescription);
             holder.productSchoolsBox = (TextView) convertView.findViewById(R.id.productSchools);
             holder.productContactsBox = (TextView) convertView.findViewById(R.id.productContacts);
 
@@ -97,24 +93,27 @@ public class FlipAdapter extends BaseAdapter {
 
         //TODO set a text with the id as well
         //holder.productID.setText(String.valueOf(product.getID()));
-        holder.productBox.setText(String.valueOf(product.getProduct()));
-        holder.descriptionBox.setText(String.valueOf(product.getDescription()));
         //holder.productTypeBox.setText(String.valueOf(product.getProductType()));
         //holder.productPurposeBox.setText(String.valueOf(product.getProductPurpose()));
         //holder.productLocationBox.setText(String.valueOf(product.getProductLocation()));
+        holder.productBox.setText(String.valueOf(product.getProduct()));
+        holder.descriptionBox.setText(String.valueOf(product.getDescription()));
         holder.productSchoolsBox.setText(String.valueOf(product.getProductSchools()));
         holder.productContactsBox.setText(String.valueOf(product.getProductContacts()));
+
         return convertView;
+
+
     }
 
 
     static class ViewHolder {
         TextView productID;
-        TextView productBox;
-        TextView descriptionBox;
         TextView productTypeBox;
         TextView productPurposeBox;
         TextView productLocationBox;
+        TextView productBox;
+        TextView descriptionBox;
         TextView productSchoolsBox;
         TextView productContactsBox;
     }

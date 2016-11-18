@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-    android:id="@+id/action_favorite"
+    android:id="@+id/list"
     android:title="List"
+    android:icon="@drawable/list_icon"
     app:showAsAction="ifRoom"/>
 
 </menu>

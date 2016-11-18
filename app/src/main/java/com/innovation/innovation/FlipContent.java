@@ -15,7 +15,7 @@ import se.emilsjolander.flipview.OverFlipMode;
  * Created by liruk on 2016-10-29.
  */
 
-public class FlipContent extends AppCompatActivity implements FlipAdapter.Callback, FlipView.OnFlipListener, FlipView.OnOverFlipListener {
+public class FlipContent extends AppCompatActivity implements FlipView.OnFlipListener, FlipView.OnOverFlipListener {
 
     private FlipView mFlipView;
     private FlipAdapter mAdapter;
@@ -25,36 +25,32 @@ public class FlipContent extends AppCompatActivity implements FlipAdapter.Callba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_flip);
 
+        //Sets up the flipboard animation
         mFlipView = (FlipView) findViewById(R.id.flip_view);
         mAdapter = new FlipAdapter(this);
         mFlipView.setAdapter(mAdapter);
         mFlipView.setOnFlipListener(this);
-        // mFlipView.peakNext(false);
-        // mFlipView.setOverFlipMode(OverFlipMode.RUBBER_BAND);
-        //mFlipView.setEmptyView(findViewById(R.id.empty_view));
-        //mFlipView.setOnOverFlipListener(this);
 
+        //Sets up toolbar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
     }
 
-    public void onPageRequested(int page) {
-        mFlipView.smoothFlipTo(page);
-    }
-
+    //Toolbar setup
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activities, menu);
+        getMenuInflater().inflate(R.menu.flipbar, menu);
         return true;
     }
 
+    //Toolbar setup
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_favorite:
+            case R.id.list:
                 Intent intent = new Intent(this, ProjectList.class);
-                startActivity(intent);
+                    startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -64,8 +60,9 @@ public class FlipContent extends AppCompatActivity implements FlipAdapter.Callba
     public void onFlippedToPage(FlipView v, int position, long id) {
         Log.i("pageflip", "Page: "+position);
 
-        if(position > mFlipView.getPageCount()-3 && mFlipView.getPageCount()<30){
-            mAdapter.addItems(5);
+        //Adds the views
+        if(position > mFlipView.getPageCount()-3 && mFlipView.getPageCount()<31){
+            mAdapter.addItems(1);
         }
     }
 
