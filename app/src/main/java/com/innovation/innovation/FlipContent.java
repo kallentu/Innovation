@@ -50,7 +50,7 @@ public class FlipContent extends AppCompatActivity implements FlipView.OnFlipLis
         switch (item.getItemId()) {
             case R.id.list:
                 Intent intent = new Intent(this, ProjectList.class);
-                    startActivity(intent);
+                startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

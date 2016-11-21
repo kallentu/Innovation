@@ -33,11 +33,12 @@ private final Integer[] imageId;
         TextView txtTitle = (TextView) rowView.findViewById(R.id.txt);
 
         ImageView imageView = (ImageView) rowView.findViewById(R.id.img);
+        String listText = web[position].toUpperCase();
         txtTitle.setText(web[position]);
 
         imageView.setImageResource(imageId[position]);
         return rowView;
         }
-        }
+}
 
 

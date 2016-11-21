@@ -549,6 +549,12 @@ public class DataBase extends AppCompatActivity {
 
     }
 
+    public void onClick(View view) {
+        Intent intent = new Intent(DataBase.this, FlipContent.class);
+        startActivity(intent);
+    }
+
+
     //Code below for future reference if needed.
 
 /*    //Adds new Product given from the views

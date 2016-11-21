@@ -7,5 +7,5 @@
         android:title="Search"
         android:icon="@drawable/flip"
         app:showAsAction="always"
-        ></item>
+        />
 </menu>
