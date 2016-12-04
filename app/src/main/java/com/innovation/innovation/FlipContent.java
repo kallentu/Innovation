@@ -1,6 +1,7 @@
 package com.innovation.innovation;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -34,6 +35,9 @@ public class FlipContent extends AppCompatActivity implements FlipView.OnFlipLis
         //Sets up toolbar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+        myToolbar.setBackgroundColor(Color.DKGRAY);
+        myToolbar.setTitleTextColor(Color.WHITE);
 
     }
 
